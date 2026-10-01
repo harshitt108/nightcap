@@ -167,7 +167,11 @@
   .faq details[open] summary::after { content: "–"; }
   .faq details p { padding: 0 0 20px; color: var(--muted); }
 
-  /* Join */
+  /* The top bar scrolls away on the way down and comes back on the way up. */
+  nav { transition: transform .25s ease; }
+  nav.away { transform: translateY(-100%); }
+  @media (prefers-reduced-motion: reduce) { nav { transition: none; } }
+  /* Download */
   .join { text-align: center; padding: 56px 28px; }
   .join h2 { font-size: clamp(30px, 4vw, 42px); margin: 12px 0 14px; }
   .join p { max-width: 34em; margin: 0 auto; }
@@ -206,9 +210,8 @@
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
       <a href="#privacy">Privacy</a>
-      <a href="#faq">FAQ</a>
     </div>
-    <a class="btn btn-primary btn-small" href="#join">Join the test</a>
+    <a class="btn btn-primary btn-small" href="#download" data-store>Download the app</a>
   </div>
 </nav>
 
@@ -220,7 +223,7 @@
     <h1>Don’t remove the choice. Make the distraction wait.</h1>
     <p class="lede muted">Nightcap pauses the apps that keep you up — Instagram, TikTok, YouTube, whatever you pick — during the hours you sleep. Really need one? Wait a couple of minutes, get a short break, and it pauses again.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#join">Join the Android test</a>
+      <a class="btn btn-primary" href="#download" data-store>Download the app</a>
       <a class="btn btn-ghost" href="#how">See how it works ↓</a>
     </div>
     <p class="availability muted"><b>● Android</b> — in testing now · coming soon to Google Play · iPhone later</p>
@@ -415,14 +418,15 @@
     </div>
   </section>
 
-  <section id="join" class="wrap">
+  <section id="download" class="wrap">
     <div class="card join">
-      <p class="overline">Early access</p>
-      <h2>Help Nightcap launch on Google Play</h2>
-      <p class="muted">We’re looking for Android testers for two weeks. You’ll need an Android phone and a Google account — we’ll send you a link to install it from Google Play.</p>
+      <p class="overline">Get Nightcap</p>
+      <h2>Protect tonight’s sleep</h2>
+      <p class="muted">Nightcap is on Android, on Google Play. The iPhone version is coming soon.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:harshitcreativestudio@gmail.com?subject=I%27d%20like%20to%20test%20Nightcap&body=Hi!%20I%27d%20like%20to%20join%20the%20Nightcap%20Android%20test.%0A%0AMy%20Google%20account%20email%3A%20">Email us to join</a>
+        <a class="btn btn-primary" href="#download" data-store>Download the app</a>
       </div>
+      <p class="muted ios-note" hidden>Nightcap isn’t on iPhone yet — it’s coming soon.</p>
     </div>
   </section>
 
@@ -441,5 +445,44 @@
   </div>
 </footer>
 
+<script>
+  // Hide the top bar while reading down; show it the moment the reader scrolls up.
+  (() => {
+    const nav = document.querySelector('nav');
+    let last = scrollY;
+    addEventListener('scroll', () => {
+      const y = scrollY;
+      if (Math.abs(y - last) < 6) return;
+      nav.classList.toggle('away', y > last && y > nav.offsetHeight);
+      last = y;
+    }, { passive: true });
+    // Following a link inside the page moves down; bring the bar back for it.
+    addEventListener('hashchange', () => nav.classList.remove('away'));
+  })();
+</script>
+<script>
+  // One "Download the app" link for everyone: Android goes to Google Play, iPhone to
+  // the App Store. Change only these two lines when the store links change.
+  const PLAY_STORE = 'https://play.google.com/store/apps/details?id=app.nightcap.bedtime';
+  const APP_STORE = null; // Not on iPhone yet — set the App Store URL here when it is.
+  (() => {
+    const ua = navigator.userAgent;
+    const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && 'ontouchend' in document);
+    const target = ios ? APP_STORE : PLAY_STORE;
+    for (const a of document.querySelectorAll('[data-store]')) {
+      if (target) {
+        a.href = target;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      } else {
+        // iPhone, no App Store link yet: land on the download card, which says so.
+        a.href = '#download';
+        a.addEventListener('click', () => {
+          document.querySelector('.ios-note').hidden = false;
+        });
+      }
+    }
+  })();
+</script>
 </body>
 </html>
