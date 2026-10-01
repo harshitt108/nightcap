@@ -4,41 +4,139 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy — Nightcap</title>
+<meta name="theme-color" content="#030B35">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #030B35; --text: #F4F2FF; --muted: #B6B2DF; --accent: #AA94FF; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 48px 16px 80px; }
-  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 4px; }
-  h2 { font-size: 19px; margin: 32px 0 4px; color: var(--accent); }
-  .sub { color: var(--muted); margin: 0 0 24px; }
-  p { margin: 0 0 12px; white-space: pre-line; }
-  .fine { font-size: 14px; color: var(--muted); }
+  /* Tokens copied from src/ui/theme.ts, as in index.html. */
+  :root {
+    --base: #030B35; --purple: #7454E8; --bright: #825CFF; --lavender: #AA94FF;
+    --text: #F4F2FF; --muted: #B6B2DF;
+    --card: rgba(17, 37, 142, 0.28); --line: rgba(170, 148, 255, 0.18); --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--text); background: var(--base);
+    font: 400 17px/1.6 Outfit, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60vmax 45vmax at 50% -5%, rgba(17, 37, 142, 0.85), transparent 70%),
+      radial-gradient(40vmax 30vmax at 90% 60%, rgba(116, 84, 232, 0.12), transparent 70%),
+      var(--base);
+  }
+  a { color: var(--lavender); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+        background: rgba(3, 11, 53, 0.72); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text);
+           text-decoration: none; font-weight: 600; font-size: 20px; }
+  .brand img { width: 34px; height: 34px; }
+  .links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+  @media (max-width: 520px) { nav .wrap { padding-top: 10px; padding-bottom: 10px; }
+    .links { margin-left: 0; width: 100%; } .links a { padding: 6px 10px; } }
+  .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px;
+             padding: 8px 12px; border-radius: 999px; }
+  .links a:hover { color: var(--text); }
+  .links a[aria-current="page"] { color: var(--text); background: var(--card);
+                                  box-shadow: inset 0 0 0 1px var(--line); }
+  header { padding: 40px 0 24px; }
+  h1 { font-size: clamp(30px, 6vw, 40px); line-height: 1.15; font-weight: 600; margin: 0 0 8px;
+       text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-bottom: 56px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: 22px 24px; box-shadow: 0 0 40px rgba(17, 37, 142, 0.25); }
+  .card h2 { font-size: 19px; font-weight: 600; margin: 0 0 8px; color: var(--lavender); }
+  .card p { margin: 0; white-space: pre-line; color: var(--text); overflow-wrap: anywhere; }
+  .card.fine p { font-size: 14px; color: var(--muted); }
+  .onward { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+            min-height: 44px; padding: 0 18px; border-radius: 999px; text-decoration: none;
+            background: var(--purple); color: #fff; font-weight: 500; font-size: 15px; }
+  .onward:hover { background: var(--bright); }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 44px; font-size: 15px; }
+  footer .wrap { display: flex; gap: 12px 16px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
 </style>
 </head>
-<body><main>
+<body>
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="nightcap-logo.png" alt="" width="34" height="34">Nightcap</a>
+    <div class="links">
+      <a href="privacy.html" aria-current="page">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="delete-data.html">Delete your data</a>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+<header>
 <h1>Privacy Policy</h1>
 <p class="sub">Last updated 30 September 2026</p>
+</header>
+<main>
+<section class="card">
 <p>Nightcap is built so that we never have your data to begin with. This policy explains what the app uses on your phone and why.</p>
+</section>
+<section class="card">
 <h2>No account</h2>
 <p>Nightcap never asks for your name, email or phone number, and there is no sign-in. We do not know who you are.</p>
+</section>
+<section class="card">
 <h2>What stays on your phone</h2>
 <p>Your sleep schedule, the apps you chose to pause, your wait and break settings, and a record of each night — how often a paused app was opened, what you chose, and for how long a break was used. This is what Insights is built from. It is stored on this device, and nowhere else Nightcap controls (see Phone backups).</p>
+</section>
+<section class="card">
 <h2>What we collect</h2>
 <p>Your schedule, the apps you chose and your night history are never sent anywhere. Nightcap has no server of its own, and contains no analytics, advertising or tracking code. The one thing that leaves your phone is what is needed to know whether you have Nightcap Pro — see Purchases.</p>
+</section>
+<section class="card">
 <h2>Permissions</h2>
 <p>Usage Access lets Nightcap see which app is on screen, so it can pause the ones you chose during your sleep hours. Display over other apps lets it show the pause screen on top of them. It also reads the list of apps on your phone so you can pick from it. While Nightcap is set up it keeps one quiet notification showing, all day — Android requires one for the service that watches for your bedtime. None of this leaves your phone.</p>
+</section>
+<section class="card">
 <h2>Phone backups</h2>
 <p>If your phone backs up app data to your Google account, Android may include Nightcap’s settings and night history in that backup, and restore them onto a new phone. That backup belongs to your Google account — we never see it, and it is managed from your Google account’s backup settings.</p>
+</section>
+<section class="card">
 <h2>Purchases</h2>
 <p>Nightcap Pro is paid for through Google Play or the App Store, under their own privacy policies — we never see your card details. To know whether you have Pro, Nightcap uses RevenueCat, a subscription service that works on our behalf: it receives a random ID the app makes for this phone, your purchase history, and basic technical details such as the app version, the device model and your country. It never receives your name, your email, or anything about your nights. This happens for everyone who opens the app, so it can tell a free user from a Pro one; RevenueCat uses it only to check purchases, under its own privacy policy.</p>
+</section>
+<section class="card">
 <h2>Deleting your data</h2>
-<p>My Account → Delete all my data erases everything Nightcap stored on this phone, and uninstalling the app does the same. Neither can reach a copy in your phone’s own backup (see Phone backups); that is deleted from your Google account. Purchase records are kept by Google Play for billing; to have the RevenueCat record deleted, write to harshitcreativestudio@gmail.com.</p>
+<p>My Account → Delete all my data erases everything Nightcap stored on this phone, and uninstalling the app does the same. Neither can reach a copy in your phone’s own backup (see Phone backups); that is deleted from your Google account. Purchase records are kept by Google Play for billing; to have the RevenueCat record deleted, write to <a href="mailto:harshitcreativestudio@gmail.com?subject=Nightcap">harshitcreativestudio@gmail.com</a>.</p>
+<a class="onward" href="delete-data.html">How to delete your data →</a>
+</section>
+<section class="card">
 <h2>Children</h2>
 <p>Nightcap is not directed at children under 13 and does not knowingly collect personal information from them.</p>
+</section>
+<section class="card">
 <h2>Changes</h2>
 <p>If this policy changes, the new version will appear here with a new date. If Nightcap ever sends anything beyond the purchase details above, this policy will say so first.</p>
+</section>
+<section class="card">
 <h2>Contact</h2>
-<p>Questions about this policy: harshitcreativestudio@gmail.com</p>
-</main></body>
+<p>Questions about this policy: <a href="mailto:harshitcreativestudio@gmail.com?subject=Nightcap">harshitcreativestudio@gmail.com</a></p>
+</section>
+</main>
+</div>
+<footer>
+  <div class="wrap">
+    <a href="index.html">← Back to Nightcap</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="delete-data.html">Delete your data</a>
+    <a href="mailto:harshitcreativestudio@gmail.com">Contact</a>
+  </div>
+</footer>
+</body>
 </html>

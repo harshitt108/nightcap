@@ -4,37 +4,130 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of Service — Nightcap</title>
+<meta name="theme-color" content="#030B35">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #030B35; --text: #F4F2FF; --muted: #B6B2DF; --accent: #AA94FF; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 48px 16px 80px; }
-  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 4px; }
-  h2 { font-size: 19px; margin: 32px 0 4px; color: var(--accent); }
-  .sub { color: var(--muted); margin: 0 0 24px; }
-  p { margin: 0 0 12px; white-space: pre-line; }
-  .fine { font-size: 14px; color: var(--muted); }
+  /* Tokens copied from src/ui/theme.ts, as in index.html. */
+  :root {
+    --base: #030B35; --purple: #7454E8; --bright: #825CFF; --lavender: #AA94FF;
+    --text: #F4F2FF; --muted: #B6B2DF;
+    --card: rgba(17, 37, 142, 0.28); --line: rgba(170, 148, 255, 0.18); --radius: 18px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--text); background: var(--base);
+    font: 400 17px/1.6 Outfit, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60vmax 45vmax at 50% -5%, rgba(17, 37, 142, 0.85), transparent 70%),
+      radial-gradient(40vmax 30vmax at 90% 60%, rgba(116, 84, 232, 0.12), transparent 70%),
+      var(--base);
+  }
+  a { color: var(--lavender); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+  nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+        background: rgba(3, 11, 53, 0.72); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text);
+           text-decoration: none; font-weight: 600; font-size: 20px; }
+  .brand img { width: 34px; height: 34px; }
+  .links { display: flex; gap: 4px; margin-left: auto; flex-wrap: wrap; }
+  @media (max-width: 520px) { nav .wrap { padding-top: 10px; padding-bottom: 10px; }
+    .links { margin-left: 0; width: 100%; } .links a { padding: 6px 10px; } }
+  .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px;
+             padding: 8px 12px; border-radius: 999px; }
+  .links a:hover { color: var(--text); }
+  .links a[aria-current="page"] { color: var(--text); background: var(--card);
+                                  box-shadow: inset 0 0 0 1px var(--line); }
+  header { padding: 40px 0 24px; }
+  h1 { font-size: clamp(30px, 6vw, 40px); line-height: 1.15; font-weight: 600; margin: 0 0 8px;
+       text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0; }
+  main { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-bottom: 56px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: 22px 24px; box-shadow: 0 0 40px rgba(17, 37, 142, 0.25); }
+  .card h2 { font-size: 19px; font-weight: 600; margin: 0 0 8px; color: var(--lavender); }
+  .card p { margin: 0; white-space: pre-line; color: var(--text); overflow-wrap: anywhere; }
+  .card.fine p { font-size: 14px; color: var(--muted); }
+  .onward { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px;
+            min-height: 44px; padding: 0 18px; border-radius: 999px; text-decoration: none;
+            background: var(--purple); color: #fff; font-weight: 500; font-size: 15px; }
+  .onward:hover { background: var(--bright); }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 44px; font-size: 15px; }
+  footer .wrap { display: flex; gap: 12px 16px; flex-wrap: wrap; align-items: center; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
 </style>
 </head>
-<body><main>
+<body>
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="nightcap-logo.png" alt="" width="34" height="34">Nightcap</a>
+    <div class="links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html" aria-current="page">Terms</a>
+      <a href="delete-data.html">Delete your data</a>
+    </div>
+  </div>
+</nav>
+<div class="wrap">
+<header>
 <h1>Terms of Service</h1>
 <p class="sub">Last updated 30 September 2026</p>
+</header>
+<main>
+<section class="card">
 <p>By using Nightcap you agree to these terms. They are short on purpose.</p>
+</section>
+<section class="card">
 <h2>What Nightcap does</h2>
 <p>Nightcap helps you keep chosen apps out of reach during the hours you set. It is a wellbeing tool, not a medical device, and it does not measure or treat sleep.</p>
+</section>
+<section class="card">
 <h2>What it can’t promise</h2>
 <p>Your phone’s system decides what apps are allowed to do. Pausing apps depends on the permissions you grant, and it can stop working if a permission is turned off, if the phone’s battery settings close Nightcap, or if the app is uninstalled. When Nightcap knows protection isn’t working, it tells you on Home.</p>
+</section>
+<section class="card">
 <h2>Always available</h2>
 <p>Nightcap never pauses your phone’s calls, messages, settings or emergency services.</p>
+</section>
+<section class="card">
 <h2>Nightcap Pro</h2>
 <p>Pro adds unlimited protected apps (Free protects 2), plus Month and All-time insights. It is an optional subscription sold through Google Play or the App Store. It renews until you cancel, and cancelling, refunds and billing follow that store’s rules. The free plan stays free.</p>
+</section>
+<section class="card">
 <h2>Fair use</h2>
 <p>Please don’t copy, resell or reverse-engineer the app, or use it to control someone else’s phone without their knowledge.</p>
+</section>
+<section class="card">
 <h2>No warranty</h2>
 <p>Nightcap is provided as it is. To the extent the law allows, we are not liable for anything that happens because an app was, or wasn’t, paused.</p>
+</section>
+<section class="card">
 <h2>Changes</h2>
 <p>If these terms change, the new version will appear here with a new date. Using Nightcap after that means you accept it.</p>
+</section>
+<section class="card">
 <h2>Contact</h2>
-<p>Questions about these terms: harshitcreativestudio@gmail.com</p>
-</main></body>
+<p>Questions about these terms: <a href="mailto:harshitcreativestudio@gmail.com?subject=Nightcap">harshitcreativestudio@gmail.com</a></p>
+</section>
+</main>
+</div>
+<footer>
+  <div class="wrap">
+    <a href="index.html">← Back to Nightcap</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="delete-data.html">Delete your data</a>
+    <a href="mailto:harshitcreativestudio@gmail.com">Contact</a>
+  </div>
+</footer>
+</body>
 </html>
