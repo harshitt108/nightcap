@@ -56,6 +56,11 @@
   .brand { display: flex; align-items: center; gap: 10px; color: var(--text);
            text-decoration: none; font-weight: 600; font-size: 20px; }
   .brand img { width: 34px; height: 34px; }
+  /* No box around the logo link. Keyboard focus shows as a soft glow on it instead,
+     so it is still findable without the browser's outline. */
+  .brand:focus, .brand:focus-visible { outline: none; }
+  .brand:focus-visible img { filter: drop-shadow(0 0 10px rgba(170, 148, 255, 0.9)); }
+  .brand:focus-visible { text-shadow: 0 0 12px rgba(170, 148, 255, 0.8); }
   nav .links { display: flex; gap: 24px; margin-left: auto; }
   nav .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
   nav .links a:hover { color: var(--text); }
