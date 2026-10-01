@@ -60,12 +60,6 @@
             min-height: 44px; padding: 0 18px; border-radius: 999px; text-decoration: none;
             background: var(--purple); color: #fff; font-weight: 500; font-size: 15px; }
   .onward:hover { background: var(--bright); }
-  /* The back button: a round tap target, like the app's back arrow. */
-  .back { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
-          color: var(--text); text-decoration: none; font-size: 20px; background: var(--card);
-          box-shadow: inset 0 0 0 1px var(--line); flex: none; }
-  .back:hover { background: rgba(116, 84, 232, 0.35); }
-  nav .back + .brand { margin-left: -4px; }
   /* The top bar scrolls away on the way down and comes back on the way up. */
   nav { transition: transform .25s ease; }
   nav.away { transform: translateY(-100%); }
@@ -88,7 +82,6 @@
 <body>
 <nav aria-label="Main">
   <div class="wrap">
-    <a class="back" href="index.html" aria-label="Back to the Nightcap home page">←</a>
     <a class="brand" href="index.html"><img src="nightcap-logo.png" alt="" width="34" height="34">Nightcap</a>
     <div class="links">
       <a href="privacy.html" aria-current="page">Privacy</a>
