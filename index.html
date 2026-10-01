@@ -56,13 +56,13 @@
   .brand { display: flex; align-items: center; gap: 10px; color: var(--text);
            text-decoration: none; font-weight: 600; font-size: 20px; }
   .brand img { width: 34px; height: 34px; }
-  /* No box around the logo link. Keyboard focus shows as a soft glow on it instead,
-     so it is still findable without the browser's outline. */
-  .brand, .brand:focus, .brand:focus-visible, .brand:active {
-    outline: 0 !important; box-shadow: none !important; -webkit-tap-highlight-color: transparent;
+  /* No focus box, glow or tap flash on any link in the top bar or footer (owner's
+     decision): a clicked link keeps focus, and browsers redraw a ring around it on Back
+     or a tab switch. The current page is shown by its pill, not by focus. */
+  nav a, nav a:focus, nav a:focus-visible, nav a:active,
+  footer a, footer a:focus, footer a:focus-visible, footer a:active {
+    outline: 0 !important; -webkit-tap-highlight-color: transparent;
   }
-  .brand:focus-visible img { filter: drop-shadow(0 0 10px rgba(170, 148, 255, 0.9)); }
-  .brand:focus-visible { text-shadow: 0 0 12px rgba(170, 148, 255, 0.8); }
   nav .links { display: flex; gap: 24px; margin-left: auto; }
   nav .links a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
   nav .links a:hover { color: var(--text); }
@@ -496,9 +496,9 @@
   // page or switch browser tabs. Let go of that focus whenever the page is shown again.
   addEventListener('pageshow', () => document.activeElement?.blur?.());
   addEventListener('visibilitychange', () => {
-    if (!document.hidden && document.activeElement?.matches?.('nav a')) document.activeElement.blur();
+    if (!document.hidden && document.activeElement?.matches?.('nav a, footer a')) document.activeElement.blur();
   });
-  document.querySelectorAll('nav a').forEach((a) =>
+  document.querySelectorAll('nav a, footer a').forEach((a) =>
     a.addEventListener('mouseup', () => a.blur()),
   );
 </script>
