@@ -58,7 +58,9 @@
   .brand img { width: 34px; height: 34px; }
   /* No box around the logo link. Keyboard focus shows as a soft glow on it instead,
      so it is still findable without the browser's outline. */
-  .brand:focus, .brand:focus-visible { outline: none; }
+  .brand, .brand:focus, .brand:focus-visible, .brand:active {
+    outline: 0 !important; box-shadow: none !important; -webkit-tap-highlight-color: transparent;
+  }
   .brand:focus-visible img { filter: drop-shadow(0 0 10px rgba(170, 148, 255, 0.9)); }
   .brand:focus-visible { text-shadow: 0 0 12px rgba(170, 148, 255, 0.8); }
   nav .links { display: flex; gap: 24px; margin-left: auto; }
@@ -488,6 +490,17 @@
       }
     }
   })();
+</script>
+<script>
+  // A clicked link keeps focus, and Chrome redraws its ring when you come Back to the
+  // page or switch browser tabs. Let go of that focus whenever the page is shown again.
+  addEventListener('pageshow', () => document.activeElement?.blur?.());
+  addEventListener('visibilitychange', () => {
+    if (!document.hidden && document.activeElement?.matches?.('nav a')) document.activeElement.blur();
+  });
+  document.querySelectorAll('nav a').forEach((a) =>
+    a.addEventListener('mouseup', () => a.blur()),
+  );
 </script>
 </body>
 </html>
